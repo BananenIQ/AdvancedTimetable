@@ -1,0 +1,39 @@
+.root {
+   -fx-spacing: 10;
+}
+
+.menu-bar {
+   -fx-background-color: #BDBDBD;
+}
+
+.menu:hover {
+    -fx-background-color: darkgray;
+}
+.menu:pressed {
+    -fx-background-color: darkgray;
+}
+.menu:showing {
+    -fx-background-color: darkgray;
+}
+
+.menu-item:focused {
+     -fx-background-color: darkgray;
+}
+
+.text-field{
+	-fx-background-color: #BDBDBD;
+}
+
+.list-view:hover{
+	-fx-background-color: darkgray;
+}
+.list-view:pressed {
+    -fx-background-color: darkgray;
+}
+.list-view:showing {
+    -fx-background-color: darkgray;
+}
+
+.list-view:focused {
+     -fx-background-color: darkgray;
+}
