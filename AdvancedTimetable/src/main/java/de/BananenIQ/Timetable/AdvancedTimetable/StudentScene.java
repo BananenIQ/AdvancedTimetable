@@ -1,8 +1,5 @@
 package de.BananenIQ.Timetable.AdvancedTimetable;
 
-import java.util.Observable;
-
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -61,7 +58,7 @@ public class StudentScene {
 					
 					for (int i = 0; i < tableList.getItems().size(); i++) {
 		
-						if (!(tableList.getItems().get(i).getId().equals(tfId.getText()))) {
+						if (!(tableList.getItems().get(i).getId() == (Integer.parseInt(tfId.getText())))) {
 							tableList.getItems().add(new Student(tfFistname, tfLastname, tfClassid, tfTimetable, tfId));
 							break;
 						}
