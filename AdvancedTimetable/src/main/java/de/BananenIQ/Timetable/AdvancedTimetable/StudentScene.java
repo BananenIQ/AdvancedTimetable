@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,21 +27,25 @@ public class StudentScene {
 		root.setLeft(pane);
 
 		TableView<Student> tableList = new TableView<Student>();
-		TableColumn<Student, String> tcFistname = new TableColumn<Student, String>("Fistname");
-		TableColumn<Student, String> tcLastname = new TableColumn<Student, String>("Lastname");
-		TableColumn<Student, String> tcClassid = new TableColumn<Student, String>("Class");
-		TableColumn<Student, String> tcTimetable = new TableColumn<Student, String>("Timetable");
-		TableColumn<Student, String> tcId = new TableColumn<Student, String>("ID");
 
-		
-		tableList.getColumns().addAll(tcFistname, tcLastname, tcClassid, tcTimetable, tcId);
+		TableColumn<Student, String> tcFirstname = new TableColumn<Student, String>("Firstname");
+		tcFirstname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+
+		TableColumn<Student, String> tcLastname = new TableColumn<Student, String>("Lastname");
+		tcLastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+
+		TableColumn<Student, String> tcClassid = new TableColumn<Student, String>("Class");
+		tcClassid.setCellValueFactory(new PropertyValueFactory<>("classId"));
+
+		TableColumn<Student, String> tcTimetable = new TableColumn<Student, String>("Timetable");
+		tcTimetable.setCellValueFactory(new PropertyValueFactory<>("timetable"));
+
+		TableColumn<Student, String> tcId = new TableColumn<Student, String>("ID");
+		tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+		tableList.getColumns().addAll(tcFirstname, tcLastname, tcClassid, tcTimetable, tcId);
 		pane.getChildren().addAll(tableList);
-		
-	    
-		
-	    
-	    
-		
+
 		final TextField tfFistname = new TextField("fistname");
 		final TextField tfLastname = new TextField("lastname");
 		final TextField tfClassid = new TextField("classid");
@@ -49,15 +54,24 @@ public class StudentScene {
 		Button btSave = new Button("Save Student");
 		btSave.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				
-				
-				
-			    
+//ID muss einzichartig sein!
+				if (tableList.getItems().isEmpty()) {
+					tableList.getItems().add(new Student(tfFistname, tfLastname, tfClassid, tfTimetable, tfId));
+				} else {
+					
+					for (int i = 0; i < tableList.getItems().size(); i++) {
+		
+						if (!(tableList.getItems().get(i).getId().equals(tfId.getText()))) {
+							tableList.getItems().add(new Student(tfFistname, tfLastname, tfClassid, tfTimetable, tfId));
+							break;
+						}
+						
+					}
+				}
 			}
 		});
 
 		userpane.getChildren().addAll(tfFistname, tfLastname, tfClassid, tfTimetable, tfId, btSave);
 	}
-	
-	
+
 }
