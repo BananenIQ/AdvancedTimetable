@@ -52,7 +52,7 @@ public class HomeStage {
 		createStudent.setGraphic(new ImageView("file:images/icon_add_user.png"));
 		createStudent.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				new StudentScene(root);
+				new StudentAddScene(root);
 			}
 		});
 
