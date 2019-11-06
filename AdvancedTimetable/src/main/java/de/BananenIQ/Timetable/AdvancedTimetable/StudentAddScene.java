@@ -50,17 +50,26 @@ public class StudentAddScene {
 		tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
 		if (!(studentList.isEmpty())) {
-			//Die Liste widerherstellen aus der studentlist in die tabelList
+			// Die Liste widerherstellen aus der studentlist in die tabelList
 		}
 
 		tableList.getColumns().addAll(tcFirstname, tcLastname, tcClassid, tcTimetable, tcId);
 		pane.getChildren().addAll(tableList);
 
-		final TextField tfFistname = new TextField("fistname");
-		final TextField tfLastname = new TextField("lastname");
-		final TextField tfClassid = new TextField("classid");
-		final TextField tfTimetable = new TextField("timetable");
-		final TextField tfId = new TextField("id");
+		final TextField tfFistname = new TextField();
+		tfFistname.setPromptText("Fistname");
+
+		final TextField tfLastname = new TextField();
+		tfLastname.setPromptText("Lastname");
+
+		final TextField tfClassid = new TextField();
+		tfClassid.setPromptText("Class name");
+
+		final TextField tfTimetable = new TextField();
+		tfTimetable.setPromptText("Timetable ID");
+
+		final TextField tfId = new TextField();
+		tfId.setPromptText("Student ID");
 
 		tfId.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -72,29 +81,40 @@ public class StudentAddScene {
 		});
 
 		Button btSave = new Button("Save Student");
+
 		btSave.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				if (studentList.isEmpty()) {
-					Student student = new Student(tfFistname, tfLastname, tfClassid, tfTimetable, tfId);
-					tableList.getItems().add(student);
-					studentList.put(Integer.parseInt(tfId.getText()), student);
-				} else if (!(studentList.containsKey(Integer.parseInt(tfId.getText())))) {
-					tableList.getItems().add(new Student(tfFistname, tfLastname, tfClassid, tfTimetable, tfId));
-					studentList.put(Integer.parseInt(tfId.getText()), student);
-				} else {
+				if (tfId.getText().isEmpty()) {
 					Alert alert = new Alert(AlertType.ERROR);
 					Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 					stage.getIcons().add(new Image("file:images/icon_advanced_Timetabke.png"));
 
-					alert.setTitle("Student add Error");
-					alert.setHeaderText("You use an existing ID!");
-					alert.setContentText("Please change the ID and try it again");
+					alert.setTitle("Student adding Error");
+					alert.setHeaderText("You must give an ID");
+					alert.setContentText("Please give an ID and try it again");
 					alert.showAndWait();
+				} else {
+					if (studentList.isEmpty()) {
+						Student student = new Student(tfFistname, tfLastname, tfClassid, tfTimetable, tfId);
+						tableList.getItems().add(student);
+						studentList.put(Integer.parseInt(tfId.getText()), student);
+					} else if (!(studentList.containsKey(Integer.parseInt(tfId.getText())))) {
+						tableList.getItems().add(new Student(tfFistname, tfLastname, tfClassid, tfTimetable, tfId));
+						studentList.put(Integer.parseInt(tfId.getText()), student);
+					} else {
+						Alert alert = new Alert(AlertType.ERROR);
+						Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+						stage.getIcons().add(new Image("file:images/icon_advanced_Timetabke.png"));
 
+						alert.setTitle("Student adding Error");
+						alert.setHeaderText("You use an existing ID!");
+						alert.setContentText("Please change the ID and try it again");
+						alert.showAndWait();
+
+					}
 				}
 			}
 		});
-
 		userpane.getChildren().addAll(tfFistname, tfLastname, tfClassid, tfTimetable, tfId, btSave);
 	}
 

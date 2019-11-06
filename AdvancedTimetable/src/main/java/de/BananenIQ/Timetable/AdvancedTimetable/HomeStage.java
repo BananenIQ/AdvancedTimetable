@@ -131,7 +131,7 @@ public class HomeStage {
 
 		root.setTop(menuBar);
 
-		Scene scene = new Scene(root, 2500, 1500);
+		Scene scene = new Scene(root, 1500, 800);
 
 		homeStage.setScene(scene);
 
