@@ -94,14 +94,24 @@ public class StudentAddScene {
 					alert.setContentText("Please give an ID and try it again");
 					alert.showAndWait();
 				} else {
+					Student student;
+					if (tfClassid.getText().isEmpty()) {
+						student = new Student(tfFistname, tfLastname, tfTimetable, tfId);
+					} else {
+						student = new Student(tfFistname, tfLastname, tfClassid, tfTimetable, tfId);
+					}
 					if (studentList.isEmpty()) {
-						Student student = new Student(tfFistname, tfLastname, tfClassid, tfTimetable, tfId);
+
 						tableList.getItems().add(student);
 						studentList.put(Integer.parseInt(tfId.getText()), student);
+
 					} else if (!(studentList.containsKey(Integer.parseInt(tfId.getText())))) {
-						tableList.getItems().add(new Student(tfFistname, tfLastname, tfClassid, tfTimetable, tfId));
+
+						tableList.getItems().add(student);
 						studentList.put(Integer.parseInt(tfId.getText()), student);
+
 					} else {
+
 						Alert alert = new Alert(AlertType.ERROR);
 						Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 						stage.getIcons().add(new Image("file:images/icon_advanced_Timetabke.png"));
